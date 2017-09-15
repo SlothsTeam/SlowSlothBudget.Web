@@ -1,0 +1,25 @@
+machine:
+  services:
+    - docker
+dependencies:
+  pre:
+    - sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+    - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+    - sudo apt-get update
+    - sudo apt-get install dotnet-sdk-2.0.0
+    - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    - sudo apt-get install -y nodejs
+  override:
+    - npm install ./src/SlowSlothBudget.Web
+    - dotnet restore ./src/SlowSlothBudget.Web
+    - ./dockerbuild.sh
+test:
+  override:
+    - docker run -d -p 8000:80 slowsloth/slowslothbudget-web
+    - curl --retry 10 --retry-delay 5 -v -f http://localhost:8000
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push slowsloth/slowslothbudget-web
