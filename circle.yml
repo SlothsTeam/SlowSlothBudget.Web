@@ -7,10 +7,8 @@ dependencies:
     - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
     - sudo apt-get update
     - sudo apt-get install dotnet-sdk-2.0.0
-    - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-    - sudo apt-get install -y nodejs
   override:
-    - npm install ./src/SlowSlothBudget.Web
+    - npm --prefix ./src/SlowSlothBudget.Web/node_modules install ./src/SlowSlothBudget.Web
     - dotnet restore ./src/SlowSlothBudget.Web
     - ./dockerbuild.sh
 test:
