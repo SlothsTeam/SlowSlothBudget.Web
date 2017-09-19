@@ -16,7 +16,7 @@ dependencies:
 test:
   override:
     - docker run -d -p 8000:80 slowsloth/slowslothbudget-web
-    - curl --retry-connrefused --retry 10 --retry-delay 5 -v -f http://localhost:8000
+    - curl --retry 10 --retry-delay 5 -v -f http://localhost:8000
 deployment:
   hub:
     branch: master
