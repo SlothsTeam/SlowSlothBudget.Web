@@ -12,7 +12,7 @@ namespace SlowSlothBudget.Web.Controllers
         {
             var apiFullyQualifiedDomainName = configuration.GetValue("API_ENV_DOCKERCLOUD_CONTAINER_FQDN", "");
             var apiPort = configuration.GetValue("API_PORT_NUMBER", "");
-            _apiBaseUrl = $"{apiFullyQualifiedDomainName}:{apiPort}";
+            _apiBaseUrl = $"http://{apiFullyQualifiedDomainName}:{apiPort}";
         }
 
         [HttpGet("[action]")]
