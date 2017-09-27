@@ -10,7 +10,7 @@ namespace SlowSlothBudget.Web.Controllers
         
         public DiscoveryServiceMockController(IConfiguration configuration)
         {
-            var apiFullyQualifiedDomainName = configuration.GetValue("API_ENV_DOCKERCLOUD_CONTAINER_FQDN", "");
+            var apiFullyQualifiedDomainName = configuration.GetValue("API_ENV_DOCKERCLOUD_SERVICE_FQDN", "");
             var apiPort = configuration.GetValue("API_PORT_NUMBER", "");
             _apiBaseUrl = $"http://{apiFullyQualifiedDomainName}:{apiPort}";
         }
